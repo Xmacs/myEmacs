@@ -25,6 +25,21 @@
 (setq line-number-mode t)
 (display-time-mode 2) 
 
+;;set the interface forsted glass
+(setq alpha-list '((85 55) (100 100)))    
+    
+(defun my-transparent ()    
+  (interactive)    
+  (let ((h (car alpha-list)))                    
+    ((lambda (a ab)    
+       (set-frame-parameter (selected-frame) 'alpha (list a ab))    
+       (add-to-list 'default-frame-alist (cons 'alpha (list a ab))))
+	 (car h)
+	 (car (cdr h)))    
+    (setq alpha-list (cdr (append alpha-list (list h)))))) 
+;; 调用运行，起效果
+(my-transparent)
+
 
 (add-to-list 'load-path "~/.emacs.d/")	  
 ;; 实现全屏效果，快捷键为f11
@@ -48,6 +63,10 @@ nil 0 nil
 '(2 "_NET_WM_STATE_FULLSCREEN" 0))
 )
 
+;;set the news RSS
+(add-to-list 'load-path "/path/to/newsticker/")
+(autoload 'newsticker-start "newsticker" "Emacs Newsticker" t)
+(autoload 'newsticker-show-news "newsticker" "Emacs Newsticker" t)
 
 ;;最大化
 ;(defun my-maximized ()
